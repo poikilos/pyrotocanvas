@@ -11,6 +11,7 @@ try:
     import tkinter as tk
     from tkinter import ttk
 except ImportError:
+    # python 2
     import Tkinter as tk
     import ttk
 import os
@@ -63,6 +64,10 @@ class DFLGUI:
         # try:
         if enableDLM:
             self.dlm = DLM(dflPath)
+        errors = self.dlm.popErrors()
+        if len(errors) > 0:
+            self.dlm = None
+            self.greeting = " ".join(errors)
         # except NameError:
         # ^ hides too many errors
         else:
